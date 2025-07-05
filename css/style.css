@@ -1,0 +1,725 @@
+/* --- VARIABLES Y ESTILOS GLOBALES --- */
+:root {
+    --primary-color: #D5451B;
+    --primary-color-dark: #b83a14;
+    --dark-color: #2c3e50;
+    --white-color: #ffffff;
+    --light-bg-color: #fff4f0;
+    --font-family: 'Poppins', sans-serif;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --primary-color: #D5451B;
+    --primary-color-rgb: 213, 69, 27; 
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-family);
+    line-height: 1.7;
+    color: var(--dark-color);
+    background-color: var(--white-color);
+}
+body.no-scroll { overflow: hidden; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+a { text-decoration: none; color: var(--primary-color); transition: color 0.3s ease; }
+a:hover { color: var(--primary-color-dark); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* --- PÁGINA DE INICIO (HOME) Y ANIMACIONES --- */
+.home-body {
+    background: linear-gradient(135deg, var(--white-color), var(--light-bg-color), var(--white-color), var(--light-bg-color));
+    background-size: 400% 400%;
+    animation: gradient-animation 15s ease infinite;
+    overflow-x: hidden;
+}
+.home-body main { overflow: hidden; }
+
+@keyframes gradient-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.particle { position: absolute; background-color: rgba(213, 69, 27, 0.5); border-radius: 50%; animation: move-particle 20s linear infinite; opacity: 0; }
+@keyframes move-particle {
+    from { transform: translate(var(--x-start), var(--y-start)); opacity: 0; }
+    50% { opacity: 1; }
+    to { transform: translate(var(--x-end), var(--y-end)); opacity: 0; }
+}
+.particle:nth-child(1) { --x-start: 10vw; --y-start: 100vh; --x-end: 80vw; --y-end: -20vh; width: 5px; height: 5px; animation-delay: 0s; }
+.particle:nth-child(2) { --x-start: 90vw; --y-start: 90vh; --x-end: 5vw; --y-end: 10vh; width: 8px; height: 8px; animation-delay: -2s; }
+.particle:nth-child(3) { --x-start: 50vw; --y-start: 110vh; --x-end: 50vw; --y-end: -10vh; width: 3px; height: 3px; animation-delay: -4s; }
+
+/* --- HEADER Y NAVEGACIÓN --- */
+.main-header {
+    position: relative; /* Comportamiento por defecto para páginas internas */
+    z-index: 1000;
+    width: 100%;
+    padding: 10px 0;
+    background: var(--white-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+/* Estilo específico para el header transparente en pantallas grandes */
+.main-header.transparent {
+    position: absolute; /* Superpuesto sobre el hero */
+    background: transparent;
+    box-shadow: none;
+}
+.main-header:not(.transparent) {
+    position: relative;
+    top: 0;
+}
+
+.main-header nav { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+.logo img { height: 110px; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-weight: 600; padding: 5px 0; position: relative; color: var(--dark-color); }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width 0.3s ease; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--dark-color); cursor: pointer; position: relative; z-index: 1001; }
+
+/* --- HERO GATEWAY (PÁGINA PRINCIPAL) --- */
+.hero-gateway { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 100vh; color: var(--dark-color); padding: 0 20px; }
+.hero-gateway h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700; margin-bottom: 20px; }
+.hero-gateway p { font-size: clamp(1.1rem, 2.5vw, 1.3rem); margin-bottom: 40px; }
+.cta-buttons { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 32px; border-radius: 50px; font-weight: 600; transition: all 0.3s ease; cursor: pointer; border: none; font-size: 1rem; }
+.btn-primary { background-color: var(--primary-color); color: var(--white-color); animation: pulse-glow 2s infinite ease-in-out; }
+.btn-primary:hover { background-color: var(--primary-color-dark); color: var(--white-color); transform: translateY(-3px); box-shadow: 0 5px 20px rgba(213, 69, 27, 0.4); animation: none; }
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px rgba(213, 69, 27, 0.2), 0 0 10px rgba(213, 69, 27, 0.2); }
+    50% { box-shadow: 0 0 20px rgba(213, 69, 27, 0.6), 0 0 30px rgba(213, 69, 27, 0.4); }
+    100% { box-shadow: 0 0 5px rgba(213, 69, 27, 0.2), 0 0 10px rgba(213, 69, 27, 0.2); }
+}
+
+.whatsapp-link { color: var(--dark-color); font-weight: 600; transition: all 0.3s ease; }
+.whatsapp-link:hover { color: #25D366; transform: scale(1.05); }
+
+.fade-in-up { opacity: 0; transform: translateY(20px); animation: fade-in-up-animation 0.8s ease-out forwards; }
+@keyframes fade-in-up-animation { to { opacity: 1; transform: translateY(0); } }
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.6s; }
+
+/* --- ESTILOS PÁGINAS INTERNAS --- */
+.section-padding { padding: 80px 0; }
+.section-title { text-align: center; font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 60px; font-weight: 600; position: relative; }
+.section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--primary-color); margin: 10px auto 0; border-radius: 2px; }
+
+/* ... (resto de estilos para servicios, nosotros, ubicación, casos, etc. se mantienen igual) ... */
+/* Servicios */
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center; }
+.service-card { background: var(--white-color); padding: 40px 30px; border-radius: var(--border-radius); box-shadow: var(--box-shadow); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+.service-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; }
+.service-card h3 { font-size: 1.5rem; margin-bottom: 15px; }
+
+/* Nosotros */
+.about-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
+.about-image img { border-radius: var(--border-radius); box-shadow: var(--box-shadow); }
+.about-text h2 { font-size: 2.2rem; font-weight: 600; color: var(--primary-color); }
+.about-text h3 { font-size: 1.2rem; font-weight: 400; margin-bottom: 20px; color: var(--dark-color); opacity: 0.9; }
+.philosophy-points { margin-top: 30px; background-color: var(--light-bg-color); padding: 20px; border-radius: var(--border-radius); border-left: 5px solid var(--primary-color); }
+.philosophy-points h4 { font-size: 1.1rem; margin-bottom: 15px; }
+.philosophy-points ul li { display: flex; gap: 10px; margin-bottom: 10px; }
+.philosophy-points ul i { color: var(--primary-color); margin-top: 4px; }
+
+/* Ubicación */
+.location-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: center; }
+.location-details h3 { font-size: 1.5rem; color: var(--primary-color); margin-top: 20px; margin-bottom: 10px; }
+.location-details p { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+.location-details i { font-size: 1.2rem; color: var(--primary-color); width: 20px; text-align: center; }
+.map-container { border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow); height: 450px; }
+.map-container iframe { width: 100%; height: 100%; border: 0; }
+
+/* --- INICIO DE REEMPLAZO: PÁGINA CASOS CLÍNICOS --- */
+
+/* Estilos para el encabezado de sección con subtítulo */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.casos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Estilo base para todas las tarjetas (existente, pero asegurado) */
+.caso-card {
+    display: block;
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    height: 450px;
+    color: var(--white-color);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.caso-card:hover {
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Tarjeta Promocional Especial */
+.caso-promo-card {
+    grid-column: span 2;
+    background: linear-gradient(135deg, var(--light-bg-color), var(--white-color));
+    color: var(--dark-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+}
+.caso-promo-card:hover { transform: translateY(-5px); }
+.caso-promo-card::after {
+    content: '';
+    position: absolute;
+    top: -50%; left: -150%;
+    width: 400%; height: 400%;
+    background: linear-gradient( -45deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60% );
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: left 0.7s ease-in-out;
+    z-index: 1;
+}
+.caso-promo-card:hover::after { left: 50%; opacity: 1; }
+.promo-content { position: relative; z-index: 2; }
+.promo-content h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); color: var(--primary-color); margin-bottom: 15px; }
+.promo-content p { font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6; }
+.promo-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; opacity: 0.5; }
+.btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); font-weight: 600; padding: 12px 28px; border-radius: 50px; transition: all 0.3s ease; display: inline-block; }
+.btn-secondary:hover { background-color: var(--primary-color); color: var(--white-color); }
+
+/* Estilos para las tarjetas de caso normales */
+.caso-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease-in-out; }
+.caso-card:hover img { transform: scale(1.1); }
+.caso-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; transition: background 0.3s ease; }
+.caso-card:hover .caso-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 70%); }
+.caso-overlay h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
+.caso-overlay p { font-weight: 300; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease 0.1s, opacity 0.4s ease 0.1s; }
+.caso-card:hover .caso-overlay h3, .caso-card:hover .caso-overlay p { transform: translateY(0); opacity: 1; }
+
+/* Retraso escalonado para las tarjetas de casos */
+.casos-grid > .fade-in-up:nth-child(1) { transition-delay: 0.05s; }
+.casos-grid > .fade-in-up:nth-child(2) { transition-delay: 0.1s; }
+.casos-grid > .fade-in-up:nth-child(3) { transition-delay: 0.15s; }
+.casos-grid > .fade-in-up:nth-child(4) { transition-delay: 0.2s; }
+.casos-grid > .fade-in-up:nth-child(5) { transition-delay: 0.25s; }
+.casos-grid > .fade-in-up:nth-child(6) { transition-delay: 0.3s; }
+.casos-grid > .fade-in-up:nth-child(7) { transition-delay: 0.35s; }
+.casos-grid > .fade-in-up:nth-child(8) { transition-delay: 0.4s; }
+.casos-grid > .fade-in-up:nth-child(9) { transition-delay: 0.45s; }
+.casos-grid > .fade-in-up:nth-child(10) { transition-delay: 0.5s; }
+.casos-grid > .fade-in-up:nth-child(11) { transition-delay: 0.55s; }
+.casos-grid > .fade-in-up:nth-child(12) { transition-delay: 0.6s; }
+.casos-grid > .fade-in-up:nth-child(13) { transition-delay: 0.65s; }
+.casos-grid > .fade-in-up:nth-child(14) { transition-delay: 0.7s; }
+
+/* --- FIN DE REEMPLAZO --- */
+
+/* Footer */
+footer { background: var(--dark-color); color: #ccc; text-align: center; padding: 20px 0; margin-top: 80px; }
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .casos-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+
+    /* Dentro de @media (max-width: 768px) */
+
+/* ... (tus otros estilos responsivos para el menú, etc.) ... */
+
+/* --- INICIO DE ADICIÓN/EDICIÓN PARA MÓVILES --- */
+.caso-promo-card {
+    grid-column: span 1; 
+}
+
+.caso-card {
+    height: 350px; 
+}
+.caso-promo-card {
+    height: auto; 
+    padding: 30px 20px;
+}
+.promo-content h2 {
+    font-size: 1.7rem; 
+}
+.promo-content p {
+    font-size: 1rem; 
+    margin-bottom: 20px;
+}
+.promo-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.caso-overlay {
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 75%);
+}
+
+/* Corrección para que el título sea estático y visible en móvil */
+.caso-overlay h3, .caso-overlay p {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none; 
+}
+
+.caso-overlay h3 {
+    font-size: 1.5rem; 
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--white-color);
+    /* Efecto de brillo sutil y moderno */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 12px rgba(var(--primary-color-rgb), 0.6); 
+}
+.caso-overlay p {
+    font-size: 0.9rem;
+    font-weight: 400; 
+}
+
+/* Oculta el elemento específico en móviles */
+.hide-on-mobile {
+    display: none !important;
+}
+/* --- FIN DE ADICIÓN/EDICIÓN --- */
+    .section-padding { padding: 60px 0; }
+    
+    /* MODIFICACIÓN CLAVE AQUÍ */
+    .home-body {
+        height: auto; /* Permite que el cuerpo de la página de inicio se expanda */
+    }
+    .hero-gateway {
+        padding-top: 80px; /* Añade espacio para que no choque con el header */
+        min-height: auto; /* Ya no necesita ocupar toda la pantalla */
+    }
+    .main-header, .main-header.transparent {
+        position: relative; /* Fuerza a TODOS los headers a ser relativos en móvil */
+        background: var(--white-color); /* Asegura que todos tengan fondo */
+        box-shadow: 0 2px 15px rgba(0,0,0,0.08); /* Asegura que todos tengan sombra */
+    }
+    /* FIN DE LA MODIFICACIÓN */
+
+    .menu-toggle { display: block; }
+    
+    .nav-links {
+        position: fixed; top: 0; right: 0; width: 100%; height: 100%;
+        background: linear-gradient(160deg, var(--light-bg-color) 0%, #ffc3b0 50%, var(--primary-color-dark) 100%);
+        background-size: 200% 200%; animation: menu-background-animation 10s ease infinite;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 2rem;
+        clip-path: circle(25px at calc(100% - 45px) 45px);
+        transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        overflow: hidden; z-index: 1000;
+    }
+    .nav-links.active { clip-path: circle(150% at calc(100% - 45px) 45px); }
+
+    @keyframes menu-background-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    
+    .nav-links::before, .nav-links::after {
+        content: ''; position: absolute;
+        background: linear-gradient(45deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+        border-radius: 50%; z-index: -1; animation: move-blob 20s infinite alternate;
+    }
+    .nav-links::before { width: 400px; height: 400px; top: -100px; left: -150px; }
+    .nav-links::after { width: 300px; height: 300px; bottom: -50px; right: -100px; animation-duration: 15s; animation-direction: alternate-reverse; }
+
+    @keyframes move-blob {
+        from { transform: rotate(0deg) scale(1) translateX(0px); }
+        to { transform: rotate(360deg) scale(1.2) translateX(50px); }
+    }
+
+    .nav-links a {
+        color: var(--white-color); font-size: 2rem; font-weight: 600;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        opacity: 0; transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .nav-links.active a { opacity: 1; transform: translateY(0); }
+    .nav-links.active li:nth-child(1) a { transition-delay: 0.3s; }
+    .nav-links.active li:nth-child(2) a { transition-delay: 0.4s; }
+    .nav-links.active li:nth-child(3) a { transition-delay: 0.5s; }
+    .nav-links.active li:nth-child(4) a { transition-delay: 0.6s; }
+    
+    .location-wrapper, .about-wrapper { grid-template-columns: 1fr; text-align: center; }
+    .about-image { max-width: 300px; margin: 0 auto 30px auto; }
+    .about-text h2, .about-text h3 { text-align: center; }
+    .philosophy-points { text-align: left; }
+
+    .casos-grid { grid-template-columns: 1fr; }
+    .caso-detalle-imagenes { grid-template-columns: 1fr; }
+
+    /* --- NUEVO: TRANSICIÓN DE PÁGINA --- */
+.page-transition-explosion {
+    position: fixed;
+    /* Las variables se asignan con JS */
+    top: var(--top);
+    left: var(--left);
+    width: 1px;
+    height: 1px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    z-index: 9999;
+    /* Inicia como un punto invisible y se centra en el cursor */
+    transform: translate(-50%, -50%) scale(0);
+    /* La animación que lo hará crecer */
+    animation: explosion-animation 0.7s ease-in-out forwards;
+}
+
+@keyframes explosion-animation {
+    to {
+        /* Un valor de escala muy grande para asegurar que cubra toda la pantalla */
+        transform: translate(-50%, -50%) scale(3000);
+    }
+}
+
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    /* ... (resto del código responsivo sin cambios) ... */
+}
+
+@media (max-width: 768px) {
+    /* ... (resto del código responsivo sin cambios) ... */
+}
+
+/* --- INICIO DE ADICIÓN: Animaciones Genéricas --- */
+
+/* Animaciones de entrada al hacer scroll */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos para la Transición de Página (Explosión) */
+.page-transition-explosion {
+    position: fixed;
+    /* Las variables 'x' e 'y' se asignan con JS */
+    top: var(--y);
+    left: var(--x);
+    width: 1px;
+    height: 1px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%) scale(0);
+    animation: explosion-animation 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes explosion-animation {
+    to {
+        transform: translate(-50%, -50%) scale(3000);
+    }
+}
+
+/* --- FIN DE ADICIÓN --- */
+
+/* --- INICIO DE ADICIÓN: Estilos para Página Detalle de Caso --- */
+
+/* Contenedor principal del detalle del caso */
+.caso-detalle-wrapper {
+    background: var(--white-color);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 900px; /* Centra el contenido en un ancho legible */
+    margin: 0 auto;
+    border-top: 5px solid var(--primary-color);
+}
+
+/* Mejora de los títulos de las imágenes comparativas */
+.imagen-comparativa h2 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--dark-color);
+    background-color: var(--light-bg-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+/* Sombra más sutil y transición para las imágenes */
+.imagen-comparativa img {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.imagen-comparativa img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+}
+
+/* Estilos para la descripción detallada */
+.caso-detalle-descripcion {
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+    margin-top: 50px;
+}
+.caso-detalle-descripcion h3 {
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+.caso-detalle-descripcion p {
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 25px;
+}
+
+/* Botón para volver a la galería de casos */
+.caso-detalle-navegacion {
+    text-align: center;
+    margin-top: 60px;
+}
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-color);
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 50px;
+    background-color: var(--light-bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.btn-back:hover {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    transform: translateY(-2px);
+}
+.btn-back i {
+    transition: transform 0.3s ease;
+}
+.btn-back:hover i {
+    transform: translateX(-3px);
+}
+
+/* Ajustes responsivos para el detalle del caso */
+@media (max-width: 768px) {
+    .caso-detalle-imagenes {
+        grid-template-columns: 1fr; /* Imágenes una encima de la otra en móvil */
+    }
+    .caso-detalle-wrapper {
+        padding: 25px;
+    }
+    .caso-detalle-descripcion h3 {
+        font-size: 1.4rem;
+    }
+    .caso-detalle-descripcion p {
+        font-size: 1rem;
+    }
+}
+
+/* --- VARIABLES Y ESTILOS GLOBALES --- */
+:root {
+    --primary-color: #D5451B;
+    --primary-color-dark: #b83a14;
+    --dark-color: #2c3e50;
+    --white-color: #ffffff;
+    --light-bg-color: #fff4f0;
+    --font-family: 'Poppins', sans-serif;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    --primary-color-rgb: 213, 69, 27; 
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* Corrección para Sticky Footer */
+body {
+    font-family: var(--font-family);
+    line-height: 1.7;
+    color: var(--dark-color);
+    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main {
+    flex-grow: 1; 
+}
+body.no-scroll { overflow: hidden; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+a { text-decoration: none; color: var(--primary-color); transition: color 0.3s ease; }
+a:hover { color: var(--primary-color-dark); }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+
+/* --- ANIMACIONES GENÉRICAS --- */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.page-transition-explosion {
+    position: fixed;
+    top: var(--y); left: var(--x);
+    width: 1px; height: 1px;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%) scale(0);
+    animation: explosion-animation 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+@keyframes explosion-animation {
+    to { transform: translate(-50%, -50%) scale(3000); }
+}
+
+/* --- HEADER Y NAVEGACIÓN --- */
+.main-header {
+    position: relative; z-index: 1000; width: 100%;
+    padding: 10px 0; background: var(--white-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+.main-header nav { display: flex; justify-content: space-between; align-items: center; height: 60px; }
+.logo img { height: 110px; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { font-weight: 600; padding: 5px 0; position: relative; color: var(--dark-color); }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: var(--primary-color); transition: width 0.3s ease; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: var(--dark-color); cursor: pointer; position: relative; z-index: 1001; }
+
+
+/* --- ESTILOS GENERALES DE PÁGINA --- */
+.section-padding { padding: 80px 0; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-title { font-size: clamp(2rem, 5vw, 2.5rem); margin-bottom: 15px; font-weight: 600; position: relative; }
+.section-subtitle { font-size: 1.1rem; color: #555; max-width: 700px; margin: 0 auto; }
+.section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--primary-color); margin: 10px auto 0; border-radius: 2px; }
+
+
+/* --- PÁGINA CASOS CLÍNICOS (GRID) --- */
+.casos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+.caso-card { display: block; position: relative; border-radius: var(--border-radius); overflow: hidden; box-shadow: var(--box-shadow); height: 450px; color: var(--white-color); transition: box-shadow 0.3s ease, transform 0.3s ease; }
+.caso-card:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.caso-promo-card { grid-column: span 2; background: linear-gradient(135deg, var(--light-bg-color), var(--white-color)); color: var(--dark-color); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px; position: relative; z-index: 1; }
+.caso-promo-card:hover { transform: translateY(-5px); }
+.promo-content h2 { font-size: clamp(1.8rem, 4vw, 2.2rem); color: var(--primary-color); margin-bottom: 15px; }
+.promo-content p { font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6; }
+.promo-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 20px; opacity: 0.5; }
+.btn-secondary { background-color: transparent; color: var(--primary-color); border: 2px solid var(--primary-color); font-weight: 600; padding: 12px 28px; border-radius: 50px; transition: all 0.3s ease; display: inline-block; }
+.btn-secondary:hover { background-color: var(--primary-color); color: var(--white-color); }
+.caso-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease-in-out; }
+.caso-card:hover img { transform: scale(1.1); }
+.caso-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; transition: background 0.3s ease; }
+.caso-card:hover .caso-overlay { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.1) 70%); }
+.caso-overlay h3 { font-size: 1.8rem; font-weight: 600; margin-bottom: 5px; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease, opacity 0.4s ease; }
+.caso-overlay p { font-weight: 300; transform: translateY(20px); opacity: 0; transition: transform 0.4s ease 0.1s, opacity 0.4s ease 0.1s; }
+.caso-card:hover .caso-overlay h3, .caso-card:hover .caso-overlay p { transform: translateY(0); opacity: 1; }
+.casos-grid > .fade-in-up:nth-child(n) { transition-delay: calc(0.05s * n); }
+
+
+/* --- PÁGINA DETALLE DE CASO (2 Columnas Sticky) --- */
+.caso-detalle-columnas { display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; align-items: flex-start; }
+.columna-imagenes { display: flex; flex-direction: column; gap: 30px; }
+.imagen-comparativa-vertical { text-align: center; }
+.imagen-comparativa-vertical img { width: 100%; border-radius: var(--border-radius); box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: transform 0.3s ease; }
+.imagen-comparativa-vertical img:hover { transform: scale(1.02); }
+.imagen-comparativa-vertical .caption-imagen { font-size: 0.9rem; font-weight: 500; color: #777; margin-top: 10px; }
+.columna-descripcion { position: sticky; top: 100px; }
+.descripcion-sticky-content { background: var(--light-bg-color); padding: 30px; border-radius: var(--border-radius); border-left: 5px solid var(--primary-color); }
+.descripcion-sticky-content h3 { font-size: 1.8rem; color: var(--dark-color); margin-bottom: 25px; }
+.tratamiento-timeline { position: relative; }
+.timeline-item { position: relative; padding-left: 45px; padding-bottom: 30px; }
+.timeline-item::before { content: ''; position: absolute; left: 15px; top: 5px; width: 2px; height: 100%; background-color: rgba(var(--primary-color-rgb), 0.2); }
+.timeline-item:last-child::before { display: none; }
+.timeline-icon { position: absolute; left: 0; top: 0; width: 32px; height: 32px; background-color: var(--primary-color); color: var(--white-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; z-index: 1; }
+.timeline-content h4 { font-size: 1.1rem; font-weight: 600; color: var(--dark-color); margin-bottom: 5px; }
+.timeline-content p { font-size: 0.95rem; color: #555; line-height: 1.6; }
+.caso-detalle-navegacion { text-align: center; margin-top: 60px; }
+.btn-back { display: inline-flex; align-items: center; gap: 10px; color: var(--dark-color); font-weight: 600; padding: 12px 24px; border-radius: 50px; background-color: #f0f0f0; transition: all 0.3s ease; }
+.btn-back:hover { background-color: var(--primary-color); color: var(--white-color); transform: translateY(-2px); }
+.btn-back i { transition: transform 0.3s ease; }
+.btn-back:hover i { transform: translateX(-3px); }
+
+
+/* --- FOOTER --- */
+footer { background: var(--dark-color); color: #ccc; text-align: center; padding: 20px 0; margin-top: auto; }
+
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .caso-promo-card { grid-column: span 2; }
+    .caso-detalle-columnas { grid-template-columns: 1fr; gap: 40px; }
+    .columna-descripcion { position: static; top: auto; }
+}
+
+@media (max-width: 768px) {
+    .section-padding { padding: 60px 0; }
+    .main-header, .main-header.transparent { position: relative; background: var(--white-color); box-shadow: 0 2px 15px rgba(0,0,0,0.08); }
+    .menu-toggle { display: block; }
+    .nav-links {
+        position: fixed; top: 0; right: 0; width: 100%; height: 100%;
+        background: linear-gradient(160deg, var(--light-bg-color) 0%, #ffc3b0 50%, var(--primary-color-dark) 100%);
+        background-size: 200% 200%; animation: menu-background-animation 10s ease infinite;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 2rem;
+        clip-path: circle(25px at calc(100% - 45px) 45px); 
+        transition: clip-path 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+        overflow: hidden; z-index: 1000;
+    }
+    .nav-links.active { clip-path: circle(150% at calc(100% - 45px) 45px); }
+    @keyframes menu-background-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .nav-links a {
+        color: var(--white-color); font-size: 2rem; font-weight: 600;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+        opacity: 0; transform: translateY(20px);
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .nav-links.active a { opacity: 1; transform: translateY(0); }
+    .nav-links.active li:nth-child(1) a { transition-delay: 0.3s; }
+    .nav-links.active li:nth-child(2) a { transition-delay: 0.4s; }
+    .nav-links.active li:nth-child(3) a { transition-delay: 0.5s; }
+    .nav-links.active li:nth-child(4) a { transition-delay: 0.6s; }
+    
+    .caso-promo-card { grid-column: span 1; }
+    .caso-card { height: 350px; }
+    .caso-promo-card { height: auto; padding: 30px 20px; }
+    .promo-content h2 { font-size: 1.7rem; }
+    .promo-content p { font-size: 1rem; margin-bottom: 20px; }
+    .promo-icon { font-size: 2.5rem; margin-bottom: 15px; }
+    .caso-overlay { padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 75%); }
+    .caso-overlay h3, .caso-overlay p { opacity: 1; transform: translateY(0); transition: none; }
+    .caso-overlay h3 { font-size: 1.5rem; font-weight: 600; margin-bottom: 5px; color: var(--white-color); text-shadow: 0 0 8px rgba(255, 255, 255, 0.5), 0 0 12px rgba(var(--primary-color-rgb), 0.6); }
+    .caso-overlay p { font-size: 0.9rem; font-weight: 400; }
+    .hide-on-mobile { display: none !important; }
+}
+}
